@@ -1,0 +1,41 @@
+# Virtual Environment
+.venv/
+venv/
+env/
+ENV/
+
+# Python cache & testing
+__pycache__/
+*.py[cod]
+*$py.class
+*.pytest_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local databases & logs
+*.db
+*.sqlite3
+*.log
+
+# Workspace & Editor artifacts
+.kilo/
+.vscode/
+.idea/
+handoff.md
+
+# Large media & presentations
+videos/
+ppt/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Generated reports & temporary assets
+data/reports/*
+!data/reports/.gitkeep
+*.zip
+test_ui.png
+playwright_e2e_test.png
