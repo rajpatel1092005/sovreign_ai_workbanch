@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1000 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="security-layers-title security-layers-desc" id="air-gap-security-root">
+        <title id="security-layers-title">Air-Gap Industrial Security and Zero-Leakage Defense Layers</title>
+        <desc id="security-layers-desc">Layer stack showing the 5 hierarchical security layers of Sovereign AI Workbench: Application perimeter, OS socket auditor, sandbox isolation, local model execution, and hardware enclave.</desc>
+        <defs>
+      <style>@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;family=Noto+Serif:ital@0;1&amp;family=Noto+Sans+KR:wght@400;500;600&amp;family=Noto+Serif+KR:wght@400&amp;family=Noto+Sans+TC:wght@400;500;600&amp;family=Noto+Serif+TC:wght@400&amp;display=swap');
+      #air-gap-security-root { --color-paper:   #2d3142;
+      --color-paper-2: #393e53;
+      --color-ink:     #f5f5f5;
+      --color-muted:   #bfc0c0;
+      --color-accent:  #f08a59;
+      --color-link:    #739fdf;
+      --font-sans:     'Geist', system-ui, sans-serif;
+      --font-serif:    'Instrument Serif', serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace; }
+      #air-gap-security-root { font-family: var(--font-sans); color: var(--color-ink); }
+      #air-gap-security-root .diagram-container { width: 100%; overflow-x: auto; }
+      @media print {
+#air-gap-security-root .diagram-container { overflow-x: visible; }
+}</style>
+          <pattern id="air-gap-security-dots" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="0.9" fill="#f5f5f5" fill-opacity="0.08"/>
+          </pattern>
+        </defs>
+
+        <!-- Base Background -->
+        <rect width="100%" height="100%" fill="#2d3142"/>
+        <rect width="100%" height="100%" fill="url(#air-gap-security-dots)" opacity="0.6"/>
+
+        <!-- Left Direction Indicator: Trust Gradient -->
+        <text x="56" y="70" fill="#bfc0c0" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.18em">INTERFACE</text>
+        <line x1="76" y1="84" x2="76" y2="440" stroke="#f5f5f5" stroke-width="1" stroke-opacity="0.30"/>
+        <polygon points="72,84 80,84 76,76" fill="#bfc0c0"/>
+        <polygon points="72,440 80,440 76,448" fill="#bfc0c0"/>
+        <text x="56" y="464" fill="#bfc0c0" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.18em">HARDWARE</text>
+
+        <!-- Top and Bottom Outer Hairlines -->
+        <line x1="120" y1="80" x2="960" y2="80" stroke="#f5f5f5" stroke-width="1" stroke-opacity="0.12"/>
+        <line x1="120" y1="440" x2="960" y2="440" stroke="#f5f5f5" stroke-width="1" stroke-opacity="0.12"/>
+
+        <!-- L5: UI & Client Gateway -->
+        <rect x="120" y="80" width="840" height="72" fill="#393e53"/>
+        <line x1="120" y1="152" x2="960" y2="152" stroke="#f5f5f5" stroke-width="1" stroke-opacity="0.12"/>
+        <text x="144" y="118" fill="#bfc0c0" font-size="8.5" font-family="'Geist Mono', monospace" letter-spacing="0.14em">L5</text>
+        <text x="190" y="114" fill="#f5f5f5" font-size="15" font-weight="600" font-family="'Geist', sans-serif">Localhost Application Gateway</text>
+        <text x="190" y="132" fill="#bfc0c0" font-size="9" font-family="'Geist Mono', monospace">127.0.0.1:8000 · Vendored marked.js · Zero CDN scripts</text>
+        <text x="940" y="122" fill="#739fdf" font-size="9.5" font-family="'Geist Mono', monospace" text-anchor="end" letter-spacing="0.08em">NO EXTERNAL INGRESS</text>
+
+        <!-- L4: OS Network Socket Auditor (FOCAL CORE) -->
+        <rect x="120" y="152" width="840" height="72" fill="#f08a59" fill-opacity="0.12"/>
+        <rect x="120" y="152" width="840" height="72" fill="none" stroke="#f08a59" stroke-width="1.2"/>
+        <text x="144" y="190" fill="#f08a59" font-size="8.5" font-family="'Geist Mono', monospace" letter-spacing="0.14em" font-weight="600">L4</text>
+        <text x="190" y="186" fill="#f5f5f5" font-size="15" font-weight="600" font-family="'Geist', sans-serif">Real-Time Socket Connection Auditor</text>
+        <text x="190" y="204" fill="#f08a59" font-size="9" font-family="'Geist Mono', monospace">psutil PID Socket Audit · GET /network-status · Kernel Verification</text>
+        <text x="940" y="194" fill="#f08a59" font-size="9.5" font-family="'Geist Mono', monospace" text-anchor="end" letter-spacing="0.08em">0 OUTBOUND CALLS VERIFIED</text>
+
+        <!-- L3: Subprocess Code Execution Sandbox -->
+        <rect x="120" y="224" width="840" height="72" fill="#2d3142"/>
+        <line x1="120" y1="296" x2="960" y2="296" stroke="#f5f5f5" stroke-width="1" stroke-opacity="0.12"/>
+        <text x="144" y="262" fill="#bfc0c0" font-size="8.5" font-family="'Geist Mono', monospace" letter-spacing="0.14em">L3</text>
+        <text x="190" y="258" fill="#f5f5f5" font-size="15" font-weight="600" font-family="'Geist', sans-serif">Subprocess Execution Sandbox</text>
+        <text x="190" y="276" fill="#bfc0c0" font-size="9" font-family="'Geist Mono', monospace">Isolated Subprocess · 30s Timeout Guard · Sanitized Stdout/Stderr</text>
+        <text x="940" y="266" fill="#bfc0c0" font-size="9.5" font-family="'Geist Mono', monospace" text-anchor="end" letter-spacing="0.08em">RUN-TIME ISOLATION</text>
+
+        <!-- L2: Local Model Weights -->
+        <rect x="120" y="296" width="840" height="72" fill="#393e53"/>
+        <line x1="120" y1="368" x2="960" y2="368" stroke="#f5f5f5" stroke-width="1" stroke-opacity="0.12"/>
+        <text x="144" y="334" fill="#bfc0c0" font-size="8.5" font-family="'Geist Mono', monospace" letter-spacing="0.14em">L2</text>
+        <text x="190" y="330" fill="#f5f5f5" font-size="15" font-weight="600" font-family="'Geist', sans-serif">Local Weights &amp; Inference Daemon</text>
+        <text x="190" y="348" fill="#bfc0c0" font-size="9" font-family="'Geist Mono', monospace">Ollama Local Daemon · qwen3.5:4b · nomic-embed-text · glm-ocr:q8_0</text>
+        <text x="940" y="338" fill="#739fdf" font-size="9.5" font-family="'Geist Mono', monospace" text-anchor="end" letter-spacing="0.08em">ZERO CLOUD APIS</text>
+
+        <!-- L1: Data Sovereignty & Hardware Enclave -->
+        <rect x="120" y="368" width="840" height="72" fill="#2d3142"/>
+        <text x="144" y="406" fill="#bfc0c0" font-size="8.5" font-family="'Geist Mono', monospace" letter-spacing="0.14em">L1</text>
+        <text x="190" y="402" fill="#f5f5f5" font-size="15" font-weight="600" font-family="'Geist', sans-serif">On-Premise Physical Storage &amp; Database</text>
+        <text x="190" y="420" fill="#bfc0c0" font-size="9" font-family="'Geist Mono', monospace">SQLite (sovereign.db) · Local Vector Index · Enterprise Disk Only</text>
+        <text x="940" y="410" fill="#bfc0c0" font-size="9.5" font-family="'Geist Mono', monospace" text-anchor="end" letter-spacing="0.08em">100% AIR-GAPPED HARDWARE</text>
+
+        <!-- Footer Callout Note -->
+        <text x="120" y="490" fill="#f08a59" font-size="13" font-style="italic" font-family="'Instrument Serif', serif">
+          * Enterprise guarantee: Confidential refinery SOPs and telemetry never transmit over public networks or external APIs.
+        </text>
+        <text x="120" y="512" fill="#bfc0c0" font-size="8.5" font-family="'Geist Mono', monospace">
+          SIH 2026 Problem Statement PS 26117 · Mangalore Refinery and Petrochemicals Limited (MRPL)
+        </text>
+      </svg>

@@ -51,29 +51,21 @@ Industrial refining, petrochemical, and critical infrastructure facilities handl
 
 ---
 
-## 🏗️ System Architecture
+## 🏗️ System Architecture & Visual Schematics
 
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        Sovereign AI Web Client                         │
-│ (Dark Glassmorphic UI · Agent Timeline · Chunk Inspector · Air-Gap Pill)│
-└───────────────────────────────────┬────────────────────────────────────┘
-                                    │ HTTP / JSON (100% Localhost)
-                                    ▼
-┌────────────────────────────────────────────────────────────────────────┐
-│                      FastAPI Application Gateway                       │
-│ (/chat · /agent · /upload · /network-status · /execute_code · /reports) │
-└───────────┬───────────────────────┬───────────────────────┬────────────┘
-            │                       │                       │
-            ▼                       ▼                       ▼
-┌───────────────────────┐ ┌───────────────────┐ ┌────────────────────────┐
-│    Local Ollama LLM   │ │ Vector Engine & DB│ │ Code & Document Engine │
-│ ├─ qwen3.5:4b (Agent) │ │ ├─ kb_index.json  │ │ ├─ Python Sandbox      │
-│ ├─ qwen2.5-coder:7b   │ │ ├─ sovereign.db   │ │ ├─ ReportLab (PDF)     │
-│ ├─ nomic-embed-text   │ │ └─ knowledge_base │ │ ├─ python-docx (DOCX)  │
-│ └─ glm-ocr:q8_0       │ │                   │ │ └─ openpyxl (XLSX)     │
-└───────────────────────┘ └───────────────────┘ └────────────────────────┘
-```
+> 📐 **Full Interactive Diagrams & Gallery**: Explore all standalone interactive diagrams and SVG deliverables in [`docs/diagrams/`](docs/diagrams/README.md).
+
+### 1. End-to-End System Architecture
+![System Architecture](docs/diagrams/system-architecture.svg)
+
+### 2. Autonomous Stage-4 ReAct Tool Execution Loop
+![Autonomous ReAct Agent Loop](docs/diagrams/react-agent-loop.svg)
+
+### 3. Air-Gap Industrial Security & Zero-Leakage Defense Hierarchy
+![Air-Gap Security](docs/diagrams/air-gap-security.svg)
+
+### 4. Multimodal Ingestion & Hybrid RAG Retrieval Pipeline
+![Hybrid RAG Pipeline](docs/diagrams/hybrid-rag-pipeline.svg)
 
 ---
 

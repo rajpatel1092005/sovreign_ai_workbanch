@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sovereign AI Workbench · Multimodal Hybrid RAG Pipeline</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper:   #2d3142;
+      --color-paper-2: #393e53;
+      --color-ink:     #f5f5f5;
+      --color-muted:   #bfc0c0;
+      --color-accent:  #f08a59;
+      --color-link:    #739fdf;
+      --font-sans:     'Geist', system-ui, sans-serif;
+      --font-serif:    'Instrument Serif', serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+    }
+
+    .frame { max-width: 1200px; width: 100%; }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--color-ink);
+      margin-bottom: 1.5rem;
+    }
+
+    .diagram-container { width: 100%; overflow-x: auto; }
+    svg { width: 100%; min-width: 960px; display: block; }
+
+    @media print {
+      .diagram-container { overflow-x: visible; }
+      svg { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Data flow · Diagram Design</p>
+    <h1>Multimodal Ingestion &amp; Hybrid RAG Pipeline</h1>
+
+    <div class="diagram-container">
+      <svg viewBox="0 0 1000 580" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="rag-pipeline-title rag-pipeline-desc">
+        <title id="rag-pipeline-title">Multimodal Ingestion and Hybrid RAG Pipeline</title>
+        <desc id="rag-pipeline-desc">Data flow diagram showing document and image ingestion, GLM-OCR extraction, kerning normalization, dense vector embeddings, hybrid lexical-vector retrieval, and grounded response synthesis.</desc>
+        <defs>
+          <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="0.9" fill="rgba(245,245,245,0.08)"/>
+          </pattern>
+          <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#bfc0c0"/></marker>
+          <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#f08a59"/></marker>
+          <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#739fdf"/></marker>
+        </defs>
+
+        <!-- Base Background -->
+        <rect width="100%" height="100%" fill="#2d3142"/>
+        <rect width="100%" height="100%" fill="url(#dots)" opacity="0.6"/>
+
+        <!-- Upper Ingestion Track (Left to Right) -->
+        <line x1="168" y1="130" x2="228" y2="130" stroke="#739fdf" stroke-width="1.3" marker-end="url(#arrow-link)"/>
+        <line x1="388" y1="130" x2="448" y2="130" stroke="#bfc0c0" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="608" y1="130" x2="668" y2="130" stroke="#bfc0c0" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <path d="M 828,130 H 870 Q 880,130 880,140 V 220 Q 880,230 870,230 H 608"
+              fill="none" stroke="#f08a59" stroke-width="1.3" marker-end="url(#arrow-accent)"/>
+
+        <!-- Lower Retrieval Track (Left to Right) -->
+        <line x1="168" y1="330" x2="228" y2="330" stroke="#739fdf" stroke-width="1.3" marker-end="url(#arrow-link)"/>
+        <line x1="388" y1="330" x2="448" y2="330" stroke="#f08a59" stroke-width="1.4" marker-end="url(#arrow-accent)"/>
+        <line x1="608" y1="330" x2="668" y2="330" stroke="#bfc0c0" stroke-width="1.2" marker-end="url(#arrow)"/>
+        <line x1="828" y1="330" x2="868" y2="330" stroke="#739fdf" stroke-width="1.3" marker-end="url(#arrow-link)"/>
+
+        <!-- Ingestion Index connection to Retrieval Index -->
+        <line x1="528" y1="266" x2="528" y2="294" stroke="#f08a59" stroke-width="1.3" marker-end="url(#arrow-accent)"/>
+
+        <!-- Masked Labels on Connectors -->
+        <rect x="180" y="118" width="36" height="14" rx="2" fill="#2d3142"/>
+        <text x="198" y="128" fill="#739fdf" font-size="7.5" font-family="'Geist Mono', monospace" text-anchor="middle">FILES</text>
+
+        <rect x="400" y="118" width="36" height="14" rx="2" fill="#2d3142"/>
+        <text x="418" y="128" fill="#bfc0c0" font-size="7.5" font-family="'Geist Mono', monospace" text-anchor="middle">TEXT</text>
+
+        <rect x="620" y="118" width="36" height="14" rx="2" fill="#2d3142"/>
+        <text x="638" y="128" fill="#bfc0c0" font-size="7.5" font-family="'Geist Mono', monospace" text-anchor="middle">768-D</text>
+
+        <rect x="704" y="222" width="60" height="14" rx="2" fill="#2d3142"/>
+        <text x="734" y="232" fill="#f08a59" font-size="7.5" font-family="'Geist Mono', monospace" text-anchor="middle">STORE KB</text>
+
+        <rect x="180" y="318" width="36" height="14" rx="2" fill="#2d3142"/>
+        <text x="198" y="328" fill="#739fdf" font-size="7.5" font-family="'Geist Mono', monospace" text-anchor="middle">QUERY</text>
+
+        <rect x="398" y="318" width="40" height="14" rx="2" fill="#2d3142"/>
+        <text x="418" y="328" fill="#f08a59" font-size="7.5" font-family="'Geist Mono', monospace" text-anchor="middle">HYBRID</text>
+
+        <rect x="618" y="318" width="40" height="14" rx="2" fill="#2d3142"/>
+        <text x="638" y="328" fill="#bfc0c0" font-size="7.5" font-family="'Geist Mono', monospace" text-anchor="middle">TOP-K</text>
+
+        <!-- Track 1: Document Ingestion Nodes -->
+        <!-- Step 1: Upload & Raw Docs -->
+        <rect x="28" y="92" width="140" height="76" rx="6" fill="#2d3142"/>
+        <rect x="28" y="92" width="140" height="76" rx="6" fill="rgba(115,159,223,0.06)" stroke="#739fdf" stroke-width="1"/>
+        <rect x="36" y="100" width="32" height="12" rx="2" fill="transparent" stroke="rgba(115,159,223,0.4)" stroke-width="0.8"/>
+        <text x="52" y="109" fill="#739fdf" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle">STEP 1</text>
+        <text x="98" y="128" fill="#f5f5f5" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Multi-Format Ingest</text>
+        <text x="98" y="144" fill="#bfc0c0" font-size="8.5" font-family="'Geist Mono', monospace" text-anchor="middle">POST /upload</text>
+        <text x="98" y="156" fill="#949eb2" font-size="8" font-family="'Geist', sans-serif" text-anchor="middle">PDFs, TXT, MD, PNG, JPG</text>
+
+        <!-- Step 2: OCR & Normalization -->
+        <rect x="228" y="92" width="160" height="76" rx="6" fill="#2d3142"/>
+        <rect x="228" y="92" width="160" height="76" rx="6" fill="rgba(245,245,245,0.04)" stroke="#bfc0c0" stroke-width="1"/>
+        <rect x="236" y="100" width="32" height="12" rx="2" fill="transparent" stroke="rgba(191,192,192,0.4)" stroke-width="0.8"/>
+        <text x="252" y="109" fill="#bfc0c0" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle">STEP 2</text>
+        <text x="308" y="128" fill="#f5f5f5" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">OCR &amp; Normalization</text>
+        <text x="308" y="144" fill="#bfc0c0" font-size="8.5" font-family="'Geist Mono', monospace" text-anchor="middle">glm-ocr:q8_0 + PyPDF</text>
+        <text x="308" y="156" fill="#949eb2" font-size="8" font-family="'Geist', sans-serif" text-anchor="middle">Kerning regex stitching</text>
+
+        <!-- Step 3: Chunking & Embeddings -->
+        <rect x="448" y="92" width="160" height="76" rx="6" fill="#2d3142"/>
+        <rect x="448" y="92" width="160" height="76" rx="6" fill="rgba(245,245,245,0.04)" stroke="#bfc0c0" stroke-width="1"/>
+        <rect x="456" y="100" width="32" height="12" rx="2" fill="transparent" stroke="rgba(191,192,192,0.4)" stroke-width="0.8"/>
+        <text x="472" y="109" fill="#bfc0c0" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle">STEP 3</text>
+        <text x="528" y="128" fill="#f5f5f5" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Vector Embedding</text>
+        <text x="528" y="144" fill="#bfc0c0" font-size="8.5" font-family="'Geist Mono', monospace" text-anchor="middle">nomic-embed-text</text>
+        <text x="528" y="156" fill="#949eb2" font-size="8" font-family="'Geist', sans-serif" text-anchor="middle">768d text vectors</text>
+
+        <!-- Step 4: Local Storage Persistence -->
+        <rect x="668" y="92" width="160" height="76" rx="6" fill="#2d3142"/>
+        <rect x="668" y="92" width="160" height="76" rx="6" fill="rgba(240,138,89,0.08)" stroke="#f08a59" stroke-width="1.2"/>
+        <rect x="676" y="100" width="32" height="12" rx="2" fill="transparent" stroke="rgba(240,138,89,0.5)" stroke-width="0.8"/>
+        <text x="692" y="109" fill="#f08a59" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle">STEP 4</text>
+        <text x="748" y="128" fill="#f5f5f5" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Local Index Storage</text>
+        <text x="748" y="144" fill="#f08a59" font-size="8.5" font-family="'Geist Mono', monospace" text-anchor="middle">data/kb_index.json</text>
+        <text x="748" y="156" fill="#949eb2" font-size="8" font-family="'Geist', sans-serif" text-anchor="middle">Chunk vectors + metadata</text>
+
+        <!-- Track 2: Hybrid Query & Retrieval Nodes -->
+        <!-- Retrieval 1: User Prompt / Query -->
+        <rect x="28" y="292" width="140" height="76" rx="6" fill="#2d3142"/>
+        <rect x="28" y="292" width="140" height="76" rx="6" fill="rgba(115,159,223,0.06)" stroke="#739fdf" stroke-width="1"/>
+        <rect x="36" y="300" width="32" height="12" rx="2" fill="transparent" stroke="rgba(115,159,223,0.4)" stroke-width="0.8"/>
+        <text x="52" y="309" fill="#739fdf" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle">QUERY</text>
+        <text x="98" y="328" fill="#f5f5f5" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">User Query</text>
+        <text x="98" y="344" fill="#bfc0c0" font-size="8.5" font-family="'Geist Mono', monospace" text-anchor="middle">POST /chat &middot; /agent</text>
+        <text x="98" y="356" fill="#949eb2" font-size="8" font-family="'Geist', sans-serif" text-anchor="middle">Natural language question</text>
+
+        <!-- Retrieval 2: Query Embedding -->
+        <rect x="228" y="292" width="160" height="76" rx="6" fill="#2d3142"/>
+        <rect x="228" y="292" width="160" height="76" rx="6" fill="rgba(245,245,245,0.04)" stroke="#bfc0c0" stroke-width="1"/>
+        <rect x="236" y="300" width="32" height="12" rx="2" fill="transparent" stroke="rgba(191,192,192,0.4)" stroke-width="0.8"/>
+        <text x="252" y="309" fill="#bfc0c0" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle">EMBED</text>
+        <text x="308" y="328" fill="#f5f5f5" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Vector Embed</text>
+        <text x="308" y="344" fill="#bfc0c0" font-size="8.5" font-family="'Geist Mono', monospace" text-anchor="middle">nomic-embed-text</text>
+        <text x="308" y="356" fill="#949eb2" font-size="8" font-family="'Geist', sans-serif" text-anchor="middle">Real-time query vector</text>
+
+        <!-- Retrieval 3: Hybrid Scoring (FOCAL) -->
+        <rect x="448" y="292" width="160" height="76" rx="6" fill="#2d3142"/>
+        <rect x="448" y="292" width="160" height="76" rx="6" fill="rgba(240,138,89,0.08)" stroke="#f08a59" stroke-width="1.3"/>
+        <rect x="456" y="300" width="32" height="12" rx="2" fill="transparent" stroke="rgba(240,138,89,0.5)" stroke-width="0.8"/>
+        <text x="472" y="309" fill="#f08a59" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle">MATCH</text>
+        <text x="528" y="328" fill="#f5f5f5" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Hybrid Retrieval</text>
+        <text x="528" y="344" fill="#f08a59" font-size="8.5" font-family="'Geist Mono', monospace" text-anchor="middle">Cosine + Keyword Bonus</text>
+        <text x="528" y="356" fill="#bfc0c0" font-size="8" font-family="'Geist', sans-serif" text-anchor="middle">Zero-hallucination threshold</text>
+
+        <!-- Retrieval 4: Grounded Answer Synthesis -->
+        <rect x="668" y="292" width="160" height="76" rx="6" fill="#2d3142"/>
+        <rect x="668" y="292" width="160" height="76" rx="6" fill="rgba(245,245,245,0.04)" stroke="#bfc0c0" stroke-width="1"/>
+        <rect x="676" y="300" width="32" height="12" rx="2" fill="transparent" stroke="rgba(191,192,192,0.4)" stroke-width="0.8"/>
+        <text x="692" y="309" fill="#bfc0c0" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle">ANSWER</text>
+        <text x="748" y="328" fill="#f5f5f5" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Grounded Synthesis</text>
+        <text x="748" y="344" fill="#bfc0c0" font-size="8.5" font-family="'Geist Mono', monospace" text-anchor="middle">qwen3.5:4b</text>
+        <text x="748" y="356" fill="#949eb2" font-size="8" font-family="'Geist', sans-serif" text-anchor="middle">Strict factual citations</text>
+
+        <!-- Retrieval 5: Interactive UI Chunk Modal -->
+        <rect x="868" y="292" width="104" height="76" rx="6" fill="#2d3142"/>
+        <rect x="868" y="292" width="104" height="76" rx="6" fill="rgba(115,159,223,0.08)" stroke="#739fdf" stroke-width="1"/>
+        <rect x="874" y="300" width="28" height="12" rx="2" fill="transparent" stroke="rgba(115,159,223,0.4)" stroke-width="0.8"/>
+        <text x="888" y="309" fill="#739fdf" font-size="6.5" font-family="'Geist Mono', monospace" text-anchor="middle">MODAL</text>
+        <text x="920" y="328" fill="#f5f5f5" font-size="11" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Source Modal</text>
+        <text x="920" y="344" fill="#bfc0c0" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">Confidence %</text>
+        <text x="920" y="356" fill="#739fdf" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle">Raw Preview</text>
+
+        <!-- Bottom Informational Cards -->
+        <rect x="28" y="416" width="300" height="64" rx="6" fill="rgba(245,245,245,0.03)" stroke="rgba(245,245,245,0.1)" stroke-width="0.8"/>
+        <text x="44" y="436" fill="#949eb2" font-size="7.5" font-family="'Geist Mono', monospace" letter-spacing="0.1em">MULTIMODAL INGESTION</text>
+        <text x="44" y="454" fill="#f5f5f5" font-size="12" font-weight="600" font-family="'Geist', sans-serif">Scanned P&amp;ID &amp; Maintenance Logs</text>
+        <text x="44" y="470" fill="#bfc0c0" font-size="8.5" font-family="'Geist', sans-serif">Local GLM-OCR accurately transcribes image tables &amp; labels</text>
+
+        <rect x="350" y="416" width="300" height="64" rx="6" fill="rgba(245,245,245,0.03)" stroke="rgba(245,245,245,0.1)" stroke-width="0.8"/>
+        <text x="366" y="436" fill="#949eb2" font-size="7.5" font-family="'Geist Mono', monospace" letter-spacing="0.1em">HYBRID SEARCH ACCURACY</text>
+        <text x="366" y="454" fill="#f5f5f5" font-size="12" font-weight="600" font-family="'Geist', sans-serif">Dense Vector + Lexical Exact Match</text>
+        <text x="366" y="470" fill="#bfc0c0" font-size="8.5" font-family="'Geist', sans-serif">Boosts equipment codes (e.g. SOP-PUMP-001) without misses</text>
+
+        <rect x="672" y="416" width="300" height="64" rx="6" fill="rgba(245,245,245,0.03)" stroke="rgba(245,245,245,0.1)" stroke-width="0.8"/>
+        <text x="688" y="436" fill="#949eb2" font-size="7.5" font-family="'Geist Mono', monospace" letter-spacing="0.1em">INSPECTION TRANSPARENCY</text>
+        <text x="688" y="454" fill="#f5f5f5" font-size="12" font-weight="600" font-family="'Geist', sans-serif">Direct Raw Chunk Inspection</text>
+        <text x="688" y="470" fill="#bfc0c0" font-size="8.5" font-family="'Geist', sans-serif">Clickable sources in chat reveal raw text and similarity metrics</text>
+
+        <!-- Legend Strip -->
+        <line x1="28" y1="514" x2="972" y2="514" stroke="rgba(245,245,245,0.12)" stroke-width="0.8"/>
+        <text x="28" y="536" fill="#bfc0c0" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.18em">LEGEND</text>
+
+        <rect x="96" y="528" width="14" height="10" rx="2" fill="rgba(240,138,89,0.08)" stroke="#f08a59" stroke-width="1"/>
+        <text x="118" y="536" fill="#bfc0c0" font-size="8.5" font-family="'Geist', sans-serif">Focal Index / Hybrid Match</text>
+
+        <rect x="290" y="528" width="14" height="10" rx="2" fill="rgba(245,245,245,0.04)" stroke="#bfc0c0" stroke-width="1"/>
+        <text x="312" y="536" fill="#bfc0c0" font-size="8.5" font-family="'Geist', sans-serif">Pipeline Stage</text>
+
+        <line x1="440" y1="533" x2="468" y2="533" stroke="#739fdf" stroke-width="1.3" marker-end="url(#arrow-link)"/>
+        <text x="476" y="536" fill="#bfc0c0" font-size="8.5" font-family="'Geist', sans-serif">External Ingestion / UI Inspection</text>
+
+        <line x1="680" y1="533" x2="708" y2="533" stroke="#f08a59" stroke-width="1.3" marker-end="url(#arrow-accent)"/>
+        <text x="716" y="536" fill="#bfc0c0" font-size="8.5" font-family="'Geist', sans-serif">Vector Indexing / Match</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>
