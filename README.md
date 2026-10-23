@@ -5,7 +5,7 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Ollama](https://img.shields.io/badge/Ollama-Local%20LLMs-black.svg?logo=ollama&logoColor=white)](https://ollama.com/)
 [![Tests Passing](https://img.shields.io/badge/Tests-23%2F23%20Passing%20(100%25)-success.svg)](https://pytest.org/)
-[![Air-Gapped Certified](https://img.shields.io/badge/Security-100%25%20Air--Gapped-green.svg)](https://github.com/200510rj/Sovereign-AI)
+[![Air-Gapped Certified](https://img.shields.io/badge/Security-100%25%20Air--Gapped-green.svg)](https://github.com/rajpatel1092005/sovreign_ai_workbanch)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Smart India Hackathon (SIH 2026) · Problem Statement: SIH26117 / PS 26117**  
@@ -56,15 +56,33 @@ Industrial refining, petrochemical, and critical infrastructure facilities handl
 > 📐 **Full Interactive Diagrams & Gallery**: Explore all standalone interactive diagrams and SVG deliverables in [`docs/diagrams/`](docs/diagrams/README.md).
 
 ### 1. End-to-End System Architecture
+*Complete on-premise topology: Web Client, FastAPI Gateway (`127.0.0.1:8000`), local Ollama models (`qwen3.5:4b`, `qwen2.5-coder:7b`, `nomic-embed-text`, `glm-ocr:q8_0`), SQLite session store, and Python sandbox.*  
+🔗 **[Open Interactive HTML Viewer](docs/diagrams/system-architecture.html)**
+
 ![System Architecture](docs/diagrams/system-architecture.svg)
 
+---
+
 ### 2. Autonomous Stage-4 ReAct Tool Execution Loop
+*Multi-step ReAct agent cycle: Dynamic tool dispatching (`search_knowledge_base`, `read_uploaded_document`, `execute_python_code`, `generate_report`), observation feedback loop, and deliverable compilation.*  
+🔗 **[Open Interactive HTML Viewer](docs/diagrams/react-agent-loop.html)**
+
 ![Autonomous ReAct Agent Loop](docs/diagrams/react-agent-loop.svg)
 
+---
+
 ### 3. Air-Gap Industrial Security & Zero-Leakage Defense Hierarchy
+*5-tier zero-leakage defense hierarchy: Localhost gateway, kernel-level socket auditor (`psutil`), isolated subprocess sandbox, local model daemon, and hardware enclave.*  
+🔗 **[Open Interactive HTML Viewer](docs/diagrams/air-gap-security.html)**
+
 ![Air-Gap Security](docs/diagrams/air-gap-security.svg)
 
+---
+
 ### 4. Multimodal Ingestion & Hybrid RAG Retrieval Pipeline
+*Document ingestion (`.pdf`, `.txt`, `.png`), GLM-OCR parsing, kerning normalization, dense vector embeddings (`nomic-embed-text`), and hybrid lexical-semantic retrieval.*  
+🔗 **[Open Interactive HTML Viewer](docs/diagrams/hybrid-rag-pipeline.html)**
+
 ![Hybrid RAG Pipeline](docs/diagrams/hybrid-rag-pipeline.svg)
 
 ---
@@ -90,8 +108,8 @@ Industrial refining, petrochemical, and critical infrastructure facilities handl
 
 ### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/200510rj/Sovereign-AI.git
-cd Sovereign-AI
+git clone https://github.com/rajpatel1092005/sovreign_ai_workbanch.git
+cd sovreign_ai_workbanch
 ```
 
 ### Step 2: Create & Activate Virtual Environment
